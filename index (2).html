@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripleJ - Premium Biscuits Lagos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.0/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0f0f0f;
+            --bg-alt: #1a1a1a;
+            --text: #e8e8e8;
+            --text-muted: #a0a0a0;
+            --accent: #d4a574;
+            --border: #2a2a2a;
+            --cacao: #2B1810;
+            --cream: #FDFBF7;
+            --crisp: #D4A373;
+            --almond: #E6CCB2;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.light-mode {
+            --bg: #ffffff;
+            --bg-alt: #f8f8f8;
+            --text: #1a1a1a;
+            --text-muted: #666666;
+            --accent: #8b6f47;
+            --border: #e0e0e0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+        }
+
+        /* Smooth page transitions */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 115, 0.3), transparent);
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        header {
+            padding: 60px 40px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            animation: slideDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-content h1 {
+            font-size: 56px;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), var(--almond));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInText 1.2s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header-content p {
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            animation: fadeInText 1.2s ease-out 0.3s both;
+        }
+
+        .theme-toggle {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--bg-alt);
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: rotateIn 0.8s ease-out 0.4s both;
+        }
+
+        @keyframes rotateIn {
+            from {
+                opacity: 0;
+                transform: rotate(-180deg) scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: rotate(0) scale(1);
+            }
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--bg);
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .whatsapp-btn {
+            display: inline-block;
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #25D366, #1da856);
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .whatsapp-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .whatsapp-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .slideshow-container {
+            padding: 80px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .slideshow-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            aspect-ratio: 1;
+            background: var(--bg-alt);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .slideshow-wrapper:hover {
+            box-shadow: 0 30px 80px rgba(212, 165, 115, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            top: 0;
+            left: 0;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: slideZoom 8s ease-in-out infinite;
+        }
+
+        @keyframes slideZoom {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .slide-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5), transparent);
+            padding: 60px 20px 20px;
+            color: white;
+            text-align: center;
+            opacity: 0;
+            transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(20px);
+        }
+
+        .slide.active .slide-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-label h3 {
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .cta-section {
+            padding: 80px 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease-out 0.5s both;
+        }
+
+        .cta-section h2 {
+            font-size: 32px;
+            color: var(--accent);
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, var(--accent), var(--almond));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-section p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--bg-alt);
+            font-size: 12px;
+            color: var(--text-muted);
+            animation: fadeInUp 0.8s ease-out 0.6s both;
+        }
+
+        footer p {
+            margin: 6px 0;
+        }
+
+        /* Cookie Banner Styles with Cool Transitions */
+        .cookie-banner {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: linear-gradient(135deg, var(--cacao) 0%, rgba(43, 24, 16, 0.95) 100%);
+            border: 1px solid var(--crisp);
+            border-radius: 12px;
+            padding: 24px;
+            max-width: 380px;
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cookie-banner:hover {
+            box-shadow: 0 30px 80px rgba(212, 165, 115, 0.3);
+            transform: translateY(-5px);
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .cookie-banner.light-mode {
+            background: linear-gradient(135deg, var(--almond) 0%, rgba(230, 204, 178, 0.95) 100%);
+            color: var(--cacao);
+        }
+
+        .cookie-title {
+            font-family: 'Instrument Serif', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--cream);
+            margin-bottom: 12px;
+            letter-spacing: 0.5px;
+            animation: fadeInDown 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cookie-banner.light-mode .cookie-title {
+            color: var(--cacao);
+        }
+
+        .cookie-text {
+            font-size: 13px;
+            color: rgba(253, 251, 247, 0.85);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            animation: fadeInDown 0.6s ease-out 0.3s both;
+        }
+
+        .cookie-banner.light-mode .cookie-text {
+            color: rgba(43, 24, 16, 0.8);
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 12px;
+            flex-direction: column;
+        }
+
+        .cookie-btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            letter-spacing: 0.5px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out 0.4s both;
+        }
+
+        .cookie-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cookie-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cookie-accept {
+            background: linear-gradient(135deg, var(--crisp), var(--almond));
+            color: var(--cacao);
+            box-shadow: 0 4px 15px rgba(212, 165, 115, 0.3);
+        }
+
+        .cookie-accept:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(212, 165, 115, 0.5);
+        }
+
+        .cookie-manage {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cream);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .cookie-manage:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--crisp);
+            transform: translateY(-2px);
+        }
+
+        .cookie-banner.light-mode .cookie-manage {
+            color: var(--cacao);
+            border-color: rgba(43, 24, 16, 0.2);
+            background: rgba(43, 24, 16, 0.05);
+        }
+
+        @media (max-width: 768px) {
+            .cookie-banner {
+                max-width: calc(100% - 48px);
+                bottom: 12px;
+                left: 12px;
+                right: 12px;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 40px 20px;
+            }
+
+            .header-content h1 {
+                font-size: 40px;
+            }
+
+            .hero, .slideshow-container, .cta-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>TripleJ</h1>
+            <p>Premium biscuits • Lagos</p>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">☀️</button>
+    </header>
+
+    <section class="hero">
+        <p>Curated selection of biscuits and crackers from trusted wholesale partners. Direct from Lagos.</p>
+        <a href="https://wa.me/2348085513418" class="whatsapp-btn">Message on WhatsApp</a>
+    </section>
+
+    <section class="slideshow-container">
+        <div class="slideshow-wrapper">
+            <div id="slideshow"></div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to order?</h2>
+        <p>Send a message on WhatsApp with your requirements</p>
+        <a href="https://wa.me/2348085513418" class="whatsapp-btn">Chat on WhatsApp</a>
+    </section>
+
+    <footer>
+        <p>WhatsApp: +234 808 551 3418</p>
+        <p>Ejigbo, Lagos • Wholesale & Retail</p>
+    </footer>
+
+    <!-- Cookie Consent Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-title">🍪 Cookie Preferences</div>
+        <p class="cookie-text">We use cookies to enhance your experience and analyze site usage. Choose your preferences below.</p>
+        <div class="cookie-buttons">
+            <button class="cookie-btn cookie-accept" onclick="acceptAllCookies()">Accept All</button>
+            <button class="cookie-btn cookie-manage" onclick="manageCookies()">Manage Preferences</button>
+        </div>
+    </div>
+
+    <script>
+        const biscuits = [
+            { name: 'Yale Digestive', img: 'https://images.unsplash.com/photo-1599599810694-b5ac4dd64974?w=800&h=800&fit=crop&q=80' },
+            { name: 'Deli Crackers', img: 'https://images.unsplash.com/photo-1585707924f48-5eedc2277f89?w=800&h=800&fit=crop&q=80' },
+            { name: 'Premium Wafers', img: 'https://images.unsplash.com/photo-1590080876-ab7ed4b8bfd6?w=800&h=800&fit=crop&q=80' },
+            { name: 'Tea Biscuits', img: 'https://images.unsplash.com/photo-1604080889193-3876e17b4c4d?w=800&h=800&fit=crop&q=80' },
+            { name: 'Malted Grain', img: 'https://images.unsplash.com/photo-1548269865-cbf461e0b0a2?w=800&h=800&fit=crop&q=80' },
+            { name: 'Coconut Delights', img: 'https://images.unsplash.com/photo-1599599810964-b82b6f16c2eb?w=800&h=800&fit=crop&q=80' },
+            { name: 'Chocolate Coated', img: 'https://images.unsplash.com/photo-1595521624265-af8e5b8b37fd?w=800&h=800&fit=crop&q=80' },
+            { name: 'Ositas Classic', img: 'https://images.unsplash.com/photo-1590080876-ab7ed4b8bfd6?w=800&h=800&fit=crop&q=80' },
+        ];
+
+        let currentIndex = 0;
+
+        function renderSlides() {
+            const slideshow = document.getElementById('slideshow');
+            slideshow.innerHTML = biscuits.map((biscuit, idx) => `
+                <div class="slide ${idx === 0 ? 'active' : ''}">
+                    <img src="${biscuit.img}" alt="${biscuit.name}" loading="lazy">
+                    <div class="slide-label">
+                        <h3>${biscuit.name}</h3>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const banner = document.getElementById('cookieBanner');
+            banner.classList.toggle('light-mode');
+            localStorage.setItem('theme', document.body.classList.contains('light-mode') ? 'light' : 'dark');
+        }
+
+        function acceptAllCookies() {
+            const banner = document.getElementById('cookieBanner');
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { x: 0.15, y: 0.85 },
+                colors: ['#d4a574', '#e6ccb2', '#2b1810']
+            });
+            gsap.to(banner, { 
+                duration: 0.7, 
+                opacity: 0, 
+                y: 100,
+                pointerEvents: 'none',
+                ease: 'back.in'
+            });
+            localStorage.setItem('cookies_accepted', 'true');
+        }
+
+        function manageCookies() {
+            Swal.fire({
+                title: 'Cookie Preferences',
+                html: `
+                    <div style="text-align: left; padding: 20px;">
+                        <label style="display: block; margin: 12px 0; font-size: 14px;">
+                            <input type="checkbox" checked disabled> Essential Cookies (Required)
+                        </label>
+                        <label style="display: block; margin: 12px 0; font-size: 14px;">
+                            <input type="checkbox" id="analytical"> Analytical Cookies
+                        </label>
+                        <label style="display: block; margin: 12px 0; font-size: 14px;">
+                            <input type="checkbox" id="marketing"> Marketing Cookies
+                        </label>
+                    </div>
+                `,
+                background: '#0f0f0f',
+                color: '#e8e8e8',
+                confirmButtonColor: '#d4a574',
+                confirmButtonText: 'Save Preferences',
+                didOpen: (modal) => {
+                    modal.style.borderRadius = '8px';
+                    modal.style.border = '1px solid #2a2a2a';
+                    gsap.from(modal, { duration: 0.6, opacity: 0, y: 50, ease: 'back.out' });
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const banner = document.getElementById('cookieBanner');
+                    gsap.to(banner, { 
+                        duration: 0.7, 
+                        opacity: 0, 
+                        y: 100,
+                        pointerEvents: 'none',
+                        ease: 'back.in'
+                    });
+                    localStorage.setItem('cookies_accepted', 'true');
+                }
+            });
+        }
+
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.body.classList.add('light-mode');
+            document.getElementById('cookieBanner').classList.add('light-mode');
+        }
+
+        if (localStorage.getItem('cookies_accepted')) {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+
+        renderSlides();
+        setInterval(nextSlide, 4500);
+    </script>
+</body>
+</html>
