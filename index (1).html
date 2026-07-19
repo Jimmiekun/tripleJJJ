@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripleJ - Premium Biscuits from Lagos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f5f1e8;
+            --text-primary: #2c2c2c;
+            --text-secondary: #5c3d2e;
+            --accent: #704214;
+            --border: rgba(139, 69, 19, 0.1);
+        }
+
+        body.dark-mode {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --accent: #d4a574;
+            --border: rgba(212, 165, 116, 0.2);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #e8dcc8);
+            min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            padding: 40px 20px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .theme-toggle {
+            padding: 10px 16px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        .hero {
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: #25D366;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+            border: none;
+            cursor: pointer;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1da856;
+            box-shadow: 0 6px 16px rgba(37, 211, 102, 0.35);
+        }
+
+        .slideshow-section {
+            padding: 60px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .slideshow {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .slide {
+            width: 100%;
+            aspect-ratio: 1;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+            padding: 30px 20px 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+
+        .slide.active .slide-info {
+            opacity: 1;
+        }
+
+        .slide-info h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .cta-section {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .cta-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .cta-section p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        footer {
+            padding: 24px 20px;
+            text-align: center;
+            background: var(--accent);
+            color: white;
+            font-size: 12px;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        footer p:last-child {
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1>TripleJ</h1>
+            <p>Premium biscuits from Lagos</p>
+        </div>
+        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode">☀️</button>
+    </header>
+
+    <section class="hero">
+        <p>Curated biscuits and crackers from trusted wholesale partners. Direct from Lagos to your door.</p>
+        <a href="https://wa.me/2348085513418" class="whatsapp-btn">
+            <span>💬</span>
+            Message on WhatsApp
+        </a>
+    </section>
+
+    <section class="slideshow-section">
+        <div class="slideshow" id="slideshow">
+            <!-- Slides will be inserted here -->
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to order?</h2>
+        <p>DM us on WhatsApp with your order details</p>
+        <a href="https://wa.me/2348085513418" class="whatsapp-btn">
+            <span>💬</span>
+            Chat on WhatsApp
+        </a>
+    </section>
+
+    <footer>
+        <p>📱 WhatsApp: +234 808 551 3418</p>
+        <p>Located in Ejigbo, Lagos | Wholesale & Retail</p>
+    </footer>
+
+    <script>
+        const biscuits = [
+            { name: 'Yale Digestive', img: 'https://images.unsplash.com/photo-1599599810694-b5ac4dd64974?w=600&h=600&fit=crop' },
+            { name: 'Deli Crackers', img: 'https://images.unsplash.com/photo-1585707924f48-5eedc2277f89?w=600&h=600&fit=crop' },
+            { name: 'Premium Wafers', img: 'https://images.unsplash.com/photo-1590080876-ab7ed4b8bfd6?w=600&h=600&fit=crop' },
+            { name: 'Tea Biscuits', img: 'https://images.unsplash.com/photo-1604080889193-3876e17b4c4d?w=600&h=600&fit=crop' },
+            { name: 'Malted Grain', img: 'https://images.unsplash.com/photo-1548269865-cbf461e0b0a2?w=600&h=600&fit=crop' },
+            { name: 'Coconut Delights', img: 'https://images.unsplash.com/photo-1599599810964-b82b6f16c2eb?w=600&h=600&fit=crop' },
+            { name: 'Chocolate Coated', img: 'https://images.unsplash.com/photo-1595521624265-af8e5b8b37fd?w=600&h=600&fit=crop' },
+            { name: 'Ositas Classic', img: 'https://images.unsplash.com/photo-1590080876-ab7ed4b8bfd6?w=600&h=600&fit=crop' },
+        ];
+
+        let currentSlide = 0;
+
+        function initSlideshow() {
+            const slideshow = document.getElementById('slideshow');
+            slideshow.innerHTML = '';
+
+            biscuits.forEach((biscuit, idx) => {
+                const slide = document.createElement('div');
+                slide.className = `slide ${idx === 0 ? 'active' : ''}`;
+                slide.innerHTML = `
+                    <img src="${biscuit.img}" alt="${biscuit.name}">
+                    <div class="slide-info">
+                        <h3>${biscuit.name}</h3>
+                    </div>
+                `;
+                slideshow.appendChild(slide);
+            });
+        }
+
+        function nextSlide() {
+            const slides = document.querySelectorAll('.slide');
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            updateThemeButton();
+        }
+
+        function updateThemeButton() {
+            const isDark = document.body.classList.contains('dark-mode');
+            document.querySelector('.theme-toggle').textContent = isDark ? '🌙' : '☀️';
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Initialize
+        initSlideshow();
+        updateThemeButton();
+        setInterval(nextSlide, 4000);
+    </script>
+</body>
+</html>
